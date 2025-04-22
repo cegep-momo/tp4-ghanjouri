@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 
 class Mesure:
+    # un constructeur
     def __init__(self, dateHeureMesure, dataMesure):
         self.dateHeureMesure = dateHeureMesure
         self.dataMesure = dataMesure
