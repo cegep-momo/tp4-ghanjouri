@@ -1,7 +1,5 @@
 import time
-import RPi.GPIO as GPIO
-from Freenove_DHT_GPIO import DHT
-from gpiozero import Button
+from gpiozero import Button, DistanceSensor
 import datetime
 
 class Platine:
@@ -11,9 +9,7 @@ class Platine:
             "arreter": Button(26)
         }
         
-        self.DHT_GPIO = 4
-        GPIO.setwarnings(False)
-        self.dht = DHT(self.DHT_GPIO)
+        self.capteur = DistanceSensor(echo=12, trigger=17, max_distance=3)
 
     def attendre_bouton(self):
         while True:
@@ -31,16 +27,9 @@ class Platine:
         return None
 
     def lire_mesure(self):
-        for i in range(15):
-            valeur = self.dht.readDHT11()
-            if valeur == self.dht.DHTLIB_OK:
-                temperature = self.dht.temperature
-                humidite = self.dht.humidity
-                moment = datetime.datetime.now()
-                return {
-                    "date": moment,
-                    "temperature": temperature,
-                    "humidite": humidite
-                }
-            time.sleep(0.1)
-        return None
+        cm = self.capteur.distance * 100  
+        moment = datetime.datetime.now()
+        return {
+            "date": moment,
+            "distance": round(cm, 2)
+        }

@@ -40,10 +40,8 @@ def main():
                     )
                     print(mesure.afficherMesure())
                     mesure.sauvegarderJson()
-                time.sleep(5)
-
-            else:
-                time.sleep(0.1)
+                else:
+                    print("Erreur de lecture du capteur. Nouvelle tentative dans 5 secondes...")
 
     except KeyboardInterrupt:
         print("Arrêt du programme par l'utilisateur.")
