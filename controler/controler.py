@@ -3,7 +3,7 @@ from model.mesure import Mesure
 from view.view import Vue
 import time
 
-class Controleur:
+class Controler:
     def __init__(self):
 
         self.platine = Platine()
@@ -17,6 +17,7 @@ class Controleur:
         self.systeme_en_marche = True
         print("Système démarré")
         self.vue.afficher_message("Systeme", "Demarer")
+        time.sleep(2)
 
     def arreter_systeme(self):
         
@@ -32,6 +33,7 @@ class Controleur:
         
         print("Prise de mesure...")
         self.vue.afficher_message("Prise", "Mesure...")
+        time.sleep(2)
         
         mesure_data = self.platine.lire_mesure()
         if mesure_data:
@@ -72,6 +74,6 @@ class Controleur:
                     time.sleep(0.1)
 
         except KeyboardInterrupt:
-            print("\nArrêt du programme par l'utilisateur.")
+            print("\nArrêt du programme")
             self.vue.effacer()
             time.sleep(1)
