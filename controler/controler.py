@@ -9,6 +9,8 @@ class Controler:
         self.platine = Platine()
         self.vue = Vue()
         self.systeme_en_marche = False
+        self.dernier_temps_mesure = time.time()  
+
 
     def demarrer_systeme(self):
         
@@ -26,6 +28,7 @@ class Controler:
         self.systeme_en_marche = False
         print("Système arrêté")
         self.vue.afficher_message("Systeme", "Arreter")
+        time.sleep(2)
 
     def prendre_mesure(self):
         
@@ -46,6 +49,8 @@ class Controler:
             print(mesure.afficherMesure())
             self.vue.afficher_distance(mesure_data["distance"])
             mesure.sauvegarderJson()
+            time.sleep(2)
+
 
     def programme(self):
         
@@ -70,8 +75,13 @@ class Controler:
                     self.prendre_mesure()
                     time.sleep(0.5)
 
-                else:
-                    time.sleep(0.1)
+                # mesure automatique
+                if self.systeme_en_marche:
+                    temps_courant = time.time()
+                    if temps_courant - self.dernier_temps_mesure >= 5:
+                        self.prendre_mesure()
+                        self.dernier_temps_mesure = temps_courant
+
 
         except KeyboardInterrupt:
             print("\nArrêt du programme")
