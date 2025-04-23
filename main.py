@@ -34,17 +34,20 @@ def main():
                     mesure = Mesure(
                         dateHeureMesure = mesure_data["date"].strftime("%Y-%m-%d %H:%M:%S"),
                         dataMesure = {
-                            "Température": mesure_data["temperature"],
-                            "Humidité": mesure_data["humidite"]
+                            "Distance (cm)": mesure_data["distance"]
                         }
                     )
                     print(mesure.afficherMesure())
                     mesure.sauvegarderJson()
-                else:
-                    print("Erreur de lecture du capteur. Nouvelle tentative dans 5 secondes...")
+
+                time.sleep(5)  # Attendre 5 secondes avant prochaine mesure
+
+            else:
+                time.sleep(0.1)
 
     except KeyboardInterrupt:
-        print("Arrêt du programme par l'utilisateur.")
+        print("\nArrêt du programme par l'utilisateur.")
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
