@@ -6,7 +6,7 @@ class Platine:
     def __init__(self):
         self.boutons = {
             "demarrer": Button(19),
-            "arreter": Button(26)
+            "mesure": Button(26)
         }
         
         self.capteur = DistanceSensor(echo=12, trigger=17, max_distance=3)
