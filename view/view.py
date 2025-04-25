@@ -31,6 +31,6 @@ class Vue:
 
     def effacer(self):
         
-       # Efface l'écran LCD
+       # on efface l'écran LCD
        
         self.lcd.clear()
